@@ -21,6 +21,7 @@
           "apps/cart/src/assets"
         ],
         "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
           "apps/cart/src/styles.scss",
           "apps/cart/src/util.scss",
           "./node_modules/bulma/css/bulma.css",

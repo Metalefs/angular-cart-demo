@@ -51,17 +51,14 @@
       <ng-container *ngIf="!checkoutService.getValid()">
         <div class="section d-flex flex-m">
           <div class="columns is-vcentered" @fadeIn>
-            <div class="column">
+            <div class="column has-text-centered">
               <figure class="image is-128x128" @fadeIn>
                 <img src="/assets/images/figures/undraw_cancel_u1it.svg" />
+                <span class="tag is-danger"> Há algo de errado com a sua compra! </span>
               </figure>
               <!-- show error in cart -->
               <div class="has-text-centered">
                 <h1 class="title is-3">
-                  <span class="icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </span>
-                  <span class="tag is-danger"> Teve algo errado com a sua compra! </span>
                 </h1>
               </div>
             </div>
