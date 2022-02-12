@@ -1,7 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { entities } from '@codeby/data';
 
-import { LerProduto } from '../actions/produto.actions'
+import { LerProdutoAbaixo10Reais, LerProdutoAcima10Reais } from '../actions/produto.actions'
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -36,9 +36,9 @@ export class ProdutoState {
       return state.areProdutosLoaded;
   }
 
-  @Action(LerProduto)
-  LerProduto({getState, setState}: StateContext<ProdutoStateModel>){
-      return this.ProdutoService.Ler().pipe(
+  @Action(LerProdutoAbaixo10Reais)
+  LerProdutoAbaixo10Reais({getState, setState}: StateContext<ProdutoStateModel>){
+      return this.ProdutoService.LerProdutoAbaixo10Reais().pipe(
         tap(result => {
           const state = getState();
           setState({
@@ -47,6 +47,19 @@ export class ProdutoState {
             areProdutosLoaded: true
           });
         }));
+  }
+
+  @Action(LerProdutoAcima10Reais)
+  LerProdutoAcima10Reais({getState, setState}: StateContext<ProdutoStateModel>){
+    return this.ProdutoService.LerProdutoAcima10Reais().pipe(
+        tap(result => {
+        const state = getState();
+        setState({
+          ...state,
+          Produtos: (result as any).items,
+          areProdutosLoaded: true
+        });
+      }));
   }
 
 }

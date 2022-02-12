@@ -19,11 +19,11 @@ export class BaseService<Type> {
     protected ErrorHandler: ErrorHandler,
   ) { }
 
+
   Ler<Type>(limit?: number, skip?: number): Observable<Array<Type>> {
-    return this.http.get<Array<Type>>(environment.endpoint + this.domain_route + '/acima').pipe(
+    return this.http.get<Array<Type>>(environment.endpoint + this.domain_route).pipe(
       retry(3),
       catchError(this.ErrorHandler.handleError)
     );
   }
-
 }

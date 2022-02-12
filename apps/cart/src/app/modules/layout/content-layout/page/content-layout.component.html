@@ -31,10 +31,13 @@
 
       <main class="main-content has-background-main">
         <router-outlet #outlet="outlet"></router-outlet>
+        <section class="container w-full d-flex flex-c">
+          <button mat-raised-button class="button is-success" (click)="loadAmountOver()">Acima de 10 reais</button>
+          <button mat-raised-button class="button is-danger" (click)="loadAmountBelow()">Abaixo de 10 reais</button>
+        </section>
       </main>
 
     </section>
-
     <codeby-footer *ngIf="showHeader()"></codeby-footer>
 
     <codeby-scroll-top *ngIf="showHeader()"></codeby-scroll-top>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Select, Store } from '@ngxs/store';
@@ -18,11 +18,11 @@ import { CalcularPrecoProduto, ObterPrecoDesconto, ObterPrecoProduto } from '../
   styleUrls: ['./tabela-edicao-orcamento.component.scss'],
   animations:[fade,slideInOut]
 })
-export class TabelaEdicaoOrcamentoComponent {
+export class TabelaEdicaoOrcamentoComponent implements OnInit {
   @Select(OrcamentoState.ObterOrcamentos) Orcamento$: Observable<entities.Orcamento>;
   ProdutoTable:MaterialTable;
   dataSource: MatTableDataSource<entities.CodProduto>;
-
+  @Input()Orcamento;
   Total = 0;
   @Input() edit = true;
   constructor(
@@ -30,8 +30,10 @@ export class TabelaEdicaoOrcamentoComponent {
     private store:Store,
     private snack: MatSnackBar,
     public dialog: NgDialogAnimationService,
+    private cdr: ChangeDetectorRef
     ) { }
     ngOnInit(): void {
+      if(!this.Orcamento)
       this.Orcamento$.subscribe(x=>{
         console.log(x)
         this.ProdutoTable = new MaterialTable();
@@ -42,13 +44,27 @@ export class TabelaEdicaoOrcamentoComponent {
           "Quantidade",
           "Subtotal",
         ];
-
         if(x.Status == enums.StatusOrcamento.enviado){
           this.snack.open("Pedido já foi enviado.", "Fechar",{duration:5000}).afterOpened().subscribe(x=>{
             this.store.dispatch(new ResetarOrcamento());
           });
         }
       })
+      else{
+        this.ProdutoTable = new MaterialTable();
+        this.dataSource = new MatTableDataSource<entities.CodProduto>(this.Orcamento.Produto);
+
+        this.ProdutoTable.displayedColumns = [
+          "Produtos",
+          "Quantidade",
+          "Subtotal",
+        ];
+        if(this.Orcamento.Status == enums.StatusOrcamento.enviado){
+          this.snack.open("Pedido já foi enviado.", "Fechar",{duration:5000}).afterOpened().subscribe(x=>{
+            this.store.dispatch(new ResetarOrcamento());
+          });
+        }
+      }
     }
   IncrementarQuantidade(element: entities.CodProduto){
     if(element){
@@ -107,6 +123,8 @@ export class TabelaEdicaoOrcamentoComponent {
     }
     // eslint-disable-next-line no-self-assign
     this.dataSource.data = this.dataSource.data;
+
+    this.cdr.detectChanges();
     return 0;
   }
 

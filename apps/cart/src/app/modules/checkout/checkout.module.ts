@@ -14,12 +14,9 @@ import { CheckoutComponent } from './page/checkout/checkout.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CheckoutPageRoutes } from './checkout.routing';
 import { ConfirmacaoComponent } from './page/confirmacao/confirmacao.component';
-import { CaixaCodigoPromocionalComponent } from './page/confirmacao/caixa-codigo-promocional/caixa-codigo-promocional.component';
-
-
 
 @NgModule({
-  declarations: [CheckoutComponent, ConfirmacaoComponent, CaixaCodigoPromocionalComponent],
+  declarations: [CheckoutComponent, ConfirmacaoComponent ],
   imports: [
     CheckoutPageRoutes,
     CommonModule,

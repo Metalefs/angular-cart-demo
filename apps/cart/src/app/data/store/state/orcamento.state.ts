@@ -40,7 +40,7 @@ export class OrcamentoState {
   @Action(AdicionarProdutoAoOrcamento)
   AdicionarProdutoAoOrcamento({ getState, patchState }: StateContext<OrcamentoStateModel>, { payload }: AdicionarProdutoAoOrcamento) {
     const state = getState();
-    const cod = new entities.CodProduto(payload, new Date().toISOString());
+    const cod = new entities.CodProduto(payload, new Date().toISOString()+(Math.random() + 1).toString(36).substring(7));
     state.Orcamento.Produto.push(cod);
     this.atualizarPreco(state);
     patchState({
@@ -86,6 +86,7 @@ export class OrcamentoState {
   ResetarOrcamento({ getState, patchState }: StateContext<OrcamentoStateModel>, { }: ResetarOrcamento) {
     const state = getState();
     state.Orcamento = DEFAULT_ORCAMENTO;
+    state.Orcamento.Produto = [];
     this.atualizarPreco(state);
     patchState({
       Orcamento: state.Orcamento
@@ -108,14 +109,16 @@ export class OrcamentoState {
     const state = getState();
     const ListaCodProdutos = [...state.Orcamento.Produto];
     const index = ListaCodProdutos.findIndex(item => item.codOrcamento === codOrcamento);
-    ListaCodProdutos[index].Produto = payload;
-    const orc = state.Orcamento;
-    orc.Produto = ListaCodProdutos;
-    this.atualizarPreco(state);
-    patchState({
-      ...state,
-      Orcamento: orc,
-    });
+    if(index > -1){
+      ListaCodProdutos[index].Produto = payload;
+      const orc = state.Orcamento;
+      orc.Produto = ListaCodProdutos;
+      this.atualizarPreco(state);
+      patchState({
+        ...state,
+        Orcamento: orc,
+      });
+    }
   }
 
   atualizarPreco(state: OrcamentoStateModel) {

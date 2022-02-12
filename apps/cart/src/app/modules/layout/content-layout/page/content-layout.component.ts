@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { cardFlip, fade, slideInOut, slider } from '../../../../animations';
+
 @Component({
   selector: 'codeby-layout',
   templateUrl: './content-layout.component.html',
@@ -11,6 +12,9 @@ export class ContentLayoutComponent implements OnInit {
   constructor(private router:Router) { }
   NavState:SideNavState = {open : false};
   url!:string;
+  @Input()loadAmountOver: () => any;
+  @Input()loadAmountBelow: () => any;
+
   ngOnInit(): void {
     this.router.events.subscribe(event=>{
       if(event instanceof NavigationStart) {

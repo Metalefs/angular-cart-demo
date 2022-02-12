@@ -1,4 +1,5 @@
-<codeby-layout></codeby-layout>
+<codeby-layout [loadAmountOver]="this.loadAmountOver" [loadAmountBelow]="this.loadAmountBelow"></codeby-layout>
+
 <cookie-law
   *ngIf="!dismissed"
   #cookieLaw
@@ -17,12 +18,11 @@
     <button
       class="w-full is-rounded dis-flex flex-w flex-m"
       title="Ok"
-      matBadgeColor="accent"
       (click)="dismissCookieLaw()"
       mat-raised-button
     >
       <p>
-        <mat-icon class="heartbutton color-light-red"> done </mat-icon>
+        <mat-icon class="heartbutton "> done </mat-icon>
         Prosseguir
       </p>
     </button>

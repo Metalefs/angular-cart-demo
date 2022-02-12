@@ -1,9 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { entities } from '@codeby/data';
 
-export class LerProduto {
+export class LerProdutoAbaixo10Reais {
 
-  static readonly type = '[Produto] Read'
+  static readonly type = '[Produto] Read More'
+
+  constructor() {}
+}
+
+export class LerProdutoAcima10Reais {
+
+  static readonly type = '[Produto] Read Less'
 
   constructor() {}
 }

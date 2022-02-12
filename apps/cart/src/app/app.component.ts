@@ -8,12 +8,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngxs/store';
 import AOS from 'aos';
 
-import { LerCategoria } from './data/store/actions/categoria.actions';
-import { AdicionarProdutoAoOrcamento, LerOrcamento, ResetarOrcamento } from './data/store/actions/orcamento.actions';
-import { LerProduto } from './data/store/actions/produto.actions';
+import { AdicionarProdutoAoOrcamento, ResetarOrcamento } from './data/store/actions/orcamento.actions';
+import { LerProdutoAbaixo10Reais, LerProdutoAcima10Reais } from './data/store/actions/produto.actions';
 import { CookieLawComponent } from 'angular2-cookie-law';
-import { StatusProduto } from 'libs/data/src/lib/enums';
-
+import { enums } from '@codeby/data';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'codeby-root',
   templateUrl: './app.component.html',
@@ -30,6 +29,7 @@ export class AppComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,
+    private snack: MatSnackBar,
     // eslint-disable-next-line @typescript-eslint/ban-types
     @Inject(PLATFORM_ID) private platform: Object,
     private titleService: Title
@@ -54,25 +54,43 @@ export class AppComponent {
           this.titleService.setTitle(ttl);
         });
     }
+    this.loadAmountOver = this.loadAmountOver.bind(this);
+    this.loadAmountBelow = this.loadAmountBelow.bind(this);
   }
+
   ngAfterViewInit(){
     this.cookieLawEl?.isSeen.subscribe(x=>this.dismissed = x);
   }
 
-  LerServicosAPI() {
-    this.store.dispatch(new LerProduto()).subscribe((result) => {
+  loadAmountOver(){
+    this.store.dispatch(new LerProdutoAcima10Reais()).subscribe((result) => {
       this.loadingInfo = 'Obtendo produtos'
       this.store.dispatch(new ResetarOrcamento()).subscribe((result) => {console.log('carrinho esvaziado')});
       result.Produtos.Produtos.forEach(element => {
         element.Quantidade = 1;
-        element.Status = StatusProduto.promocao;
+        element.Status = enums.StatusProduto.promocao;
+        this.store.dispatch(new AdicionarProdutoAoOrcamento(element)).subscribe((result) => {
+          console.log(element.name + " Adicionado ao carrinho")
+        });
+
+      });
+      this.snack.open("Remova os itens abaixo de R$ 10,00 para continuar", "Atenção")
+    } );
+  }
+
+  loadAmountBelow(){
+    this.store.dispatch(new LerProdutoAbaixo10Reais()).subscribe((result) => {
+      this.loadingInfo = 'Obtendo produtos'
+      this.store.dispatch(new ResetarOrcamento()).subscribe((result) => {console.log('carrinho esvaziado')});
+      result.Produtos.Produtos.forEach(element => {
+        element.Quantidade = 1;
+        element.Status = enums.StatusProduto.promocao;
         this.store.dispatch(new AdicionarProdutoAoOrcamento(element)).subscribe((result) => {
           console.log(element.name + " Adicionado ao carrinho")
         });
       });
+      this.snack.open("Remova os itens acima de R$ 10,00 para continuar", "Atenção")
     } );
-    this.store.dispatch(new LerOrcamento()).subscribe(() => this.loadingInfo = '');
-    this.store.dispatch(new LerCategoria()).subscribe();
   }
 
   hideSpiner(){
@@ -83,7 +101,7 @@ export class AppComponent {
     AOS.init();
     if (isPlatformBrowser(this.platform)) {
       this.spinner.show();
-      this.LerServicosAPI();
+      this.loadAmountBelow();
     }
   }
 

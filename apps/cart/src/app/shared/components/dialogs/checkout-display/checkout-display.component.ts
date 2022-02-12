@@ -80,7 +80,7 @@ export class CheckoutDisplayComponent implements OnInit {
   }
 
   removerProduto(Produto:entities.CodProduto){
-    this.store.dispatch(new RemoverProdutoOrcamento(Produto.Produto.id,Produto.codOrcamento)).subscribe(x=>{
+    this.store.dispatch(new RemoverProdutoOrcamento(Produto.Produto.id, Produto.codOrcamento)).subscribe(x=>{
       this.Orcamento$.subscribe(x=>{
         const Produtos =  x.Produto;
         this.ProdutoTable.dataSource = Produtos;

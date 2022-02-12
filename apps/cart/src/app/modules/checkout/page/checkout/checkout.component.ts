@@ -21,6 +21,7 @@ import { entities } from '@codeby/data';
 export class CheckoutComponent implements OnInit {
   @Select(OrcamentoState.ObterOrcamentos)
   Orcamento$!: Observable<entities.Orcamento>;
+  cdr: any;
 
   constructor(
     public checkoutService: CheckoutService,
@@ -55,6 +56,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   FinalizarCompra() {
+
     this.Orcamento$.subscribe(orc => {
       this.checkoutService.Validate(orc);
       if (this.checkoutService.getValid()) {
