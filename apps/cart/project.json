@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/cart",
         "index": "apps/cart/src/index.html",
@@ -14,8 +16,16 @@
         "polyfills": "apps/cart/src/polyfills.ts",
         "tsConfig": "apps/cart/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/cart/src/favicon.ico", "apps/cart/src/assets"],
-        "styles": ["apps/cart/src/styles.scss"],
+        "assets": [
+          "apps/cart/src/favicon.ico",
+          "apps/cart/src/assets"
+        ],
+        "styles": [
+          "apps/cart/src/styles.scss",
+          "apps/cart/src/util.scss",
+          "./node_modules/bulma/css/bulma.css",
+          "./node_modules/aos/dist/aos.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -72,12 +82,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/cart/src/**/*.ts", "apps/cart/src/**/*.html"]
+        "lintFilePatterns": [
+          "apps/cart/src/**/*.ts",
+          "apps/cart/src/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/cart"],
+      "outputs": [
+        "coverage/apps/cart"
+      ],
       "options": {
         "jestConfig": "apps/cart/jest.config.js",
         "passWithNoTests": true

@@ -1,0 +1,55 @@
+
+<div class="pos-sticky top-0" style="overflow-y: visible !important;z-index: 11;">
+  <nav
+    class="navbar columns flex-sb is-vcentered w-full is-mobile z-index-top mx-0"
+    style="z-index: 20;overflow-y: visible !important;"
+  >
+    <div class="column is-1-desktop is-5-mobile mr-1">
+      <a @fadeIn href="#" class="logo flex-m a-i-c">
+        <figure class="image is-64x64">
+          <img
+            src="assets/images/icons/logo-cart.svg"
+            alt="logo"
+          />
+        </figure>
+      </a>
+    </div>
+
+    <div class="column">
+      <div class="columns is-mobile is-vcentered ">
+        <div class="column is-12">
+          <button
+            class="button pr-0"
+            color=""
+            (click)="openCheckout()"
+            title="Cesta de compras"
+            aria-label="Botão abrir Orçamento"
+          >
+            <span class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                />
+              </svg>
+            </span>
+            <span class="is-hidden-touch has-text-white px-0" mat-menu-item>
+              Seu Carrinho
+            </span>
+            <!-- <span class="badge">
+              {{ (Orcamento$ | async)?.Produto.length || 0 }}
+            </span> -->
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <mat-toolbar-row
+    [className]="'produtos-nav-under'"
+  >
+  </mat-toolbar-row>
+</div>

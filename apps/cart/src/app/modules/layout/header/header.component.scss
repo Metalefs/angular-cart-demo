@@ -1,0 +1,102 @@
+
+@import '../../../../variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.5rem;
+}
+
+.badge {
+  background-color: #b94517;
+  padding: 0.25rem 1rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.button:hover .badge,
+.button:active .badge {
+  background-color: #92320c;
+}
+
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.navbar {
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 10%;
+  padding-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  overflow-x: clip;
+  z-index: 11;
+  &:nth-child(1){
+    box-shadow: rgba(133, 133, 133, 0.12) 0px 2px 4px;
+    background-color: #8a2b06;
+    margin-bottom: 0;
+    background: $background-light;
+  }
+}
+.cart{
+  &-subtitle{
+    color: rgb(148, 153, 179);
+    font-size: 11px;
+    line-height: 100%;
+  }
+  &-title{
+    color: rgb(105, 109, 140);
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    line-height: 0;
+  }
+  &-counter{
+    position: relative;
+    text-align: center;
+    color: #fff;
+    font-size: 10px;
+    background:rgba(0, 0, 0, 0.548);
+    border-radius: 50%;
+    width: 20px;
+    top: -5px;
+    /* right: 0; */
+    font-weight: 800;
+  }
+}
+@-webkit-keyframes AnimationName {
+  0%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+  0%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}

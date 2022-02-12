@@ -1,0 +1,42 @@
+<!-- <div
+  matRipple
+  (click)="ToggleNav(0)"
+  class="nav-trigger z-index-top"
+  [ngClass]="NavState.open ? 'is-active' : ''"
+  role="button"
+  title="Menu"
+>
+  <div matRipple class="hamburger">
+    <div class="icon"></div>
+  </div>
+</div> -->
+
+<div class="wrapper" id="topo">
+  <div class="has-background-dark">
+    <div id="nav-menu" [ngClass]="NavState.open ? 'is-active' : ''" class="">
+      <codeby-navbar
+        [NavState]="NavState"
+      ></codeby-navbar>
+    </div>
+  </div>
+
+  <div
+    [@routeAnimations]="prepareRoute(outlet)"
+    [ngClass]="NavState.open ? 'main is-active' : ''"
+    (mouseover)="CloseNav()"
+  >
+    <section class="split-home has-background-main">
+
+      <codeby-header *ngIf="showHeader()"></codeby-header>
+
+      <main class="main-content has-background-main">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </main>
+
+    </section>
+
+    <codeby-footer *ngIf="showHeader()"></codeby-footer>
+
+    <codeby-scroll-top *ngIf="showHeader()"></codeby-scroll-top>
+  </div>
+</div>

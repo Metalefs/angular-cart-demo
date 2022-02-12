@@ -1,0 +1,126 @@
+<div
+  class="checkout-background pos-fixed"
+></div>
+<section class="section mh-full">
+  <h1 class="section w-full cart-title has-text-center title is-3">Meu carrinho</h1>
+  <div class="container">
+    <a class="logo block" routerLink="/"></a>
+    <!-- <ul class="progress-indicator">
+      <li class="completed">
+        <span class="bubble"></span> Carrinho.
+      </li>
+      <li >
+        <span class="bubble"></span> Entrega.
+      </li>
+    </ul> -->
+    <div>
+      <codeby-confirmacao></codeby-confirmacao>
+    </div>
+    <div
+      @slideInOut
+      class="section w-full pos-relative au am de ft iv cs ct iw cw cz fn bf d3 d4 d5 d6"
+    >
+      <div class="columns w-full">
+        <div class="column">
+          <div class="">
+            <div class="mb-2">
+              <a
+                pageScroll
+                href="#pagamento1"
+                mat-flat-button
+                class="button is-primary w-full is-uppercase"
+                (click)="FinalizarCompra()"
+              >
+              Finalizar Compra
+                <!-- <svg
+                  class="svg-inline--fa fa-chevron-right fa-w-10"
+                  data-prefix="fad"
+                  data-icon="chevron-right"
+                  style="height: 20px;"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  data-fa-i2svg=""
+                >
+                  <g class="fa-group">
+                    <path
+                      class="fa-secondary"
+                      fill="currentColor"
+                      d="M188.74 256l56.78 56.89L91.21 466.9a24 24 0 0 1-33.94 0l-22.7-22.65a23.93 23.93 0 0 1 0-33.84z"
+                    ></path>
+                    <path
+                      class="fa-primary"
+                      fill="currentColor"
+                      d="M91.25 45.06l194.33 194a23.93 23.93 0 0 1 0 33.84l-40 40-211-211.34a23.92 23.92 0 0 1 0-33.84l22.7-22.65a24 24 0 0 1 33.97-.01z"
+                    ></path>
+                  </g>
+                </svg> -->
+              </a>
+            </div>
+          </div>
+          <div class="box px-3 py-3 w-full z-index-2">
+            <div class="" id="pagamento1">
+              <div class="w-full of-x-scroll">
+
+              </div>
+            </div>
+
+            <mat-toolbar class="dis-flex flex-sb py-6 of-y-hidden">
+              <a class="is-size-7">aviso legal</a>
+              <span class="spacer"></span>
+              <!-- <figure class="image px-4 ">
+                <img src="assets/images/icons/selos-seguranca-mp.gif" height="100">
+              </figure> -->
+              <figure class="image px-4 is-64x64">
+                <img
+                  src="assets/images/icons/bandeira-dos-cartoes-de-credito.png"
+                />
+              </figure>
+            </mat-toolbar>
+          </div>
+        </div>
+      </div>
+
+
+      <ng-container *ngIf="!checkoutService.getValid()">
+        <div class="section">
+          <div class="columns is-vcentered" @fadeIn>
+            <div class="column is-3">
+              <figure class="image has-ratio" @fadeIn>
+                <img src="/assets/images/figures/undraw_cancel_u1it.svg" />
+              </figure>
+            </div>
+            <div class="column">
+              <mat-list class="px-2 mx-2" @fadeIn>
+                <mat-list-item
+                  class="pb-2 box"
+                  @fadeIn
+                  *ngFor="let erro of checkoutService.getErros()"
+                >
+                  <p class="subtitle is-size-6 has-text-danger mb-0">
+                    <mat-icon>error</mat-icon> {{ erro }}
+                  </p>
+                  <mat-divider></mat-divider>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="checkoutService.getValid()">
+        <div class="section columns pos-sticky top-0 z-index-1 bellow-nav" @fadeIn>
+          <div class="column">
+            <mat-list class="px-2 mx-2" @fadeIn>
+              <mat-list-item class="box" @fadeIn>
+                <p class="subtitle is-size-6 has-text-success">
+                  <mat-icon>check</mat-icon> Seu pedido está valido!
+                </p>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>

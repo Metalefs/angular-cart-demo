@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  endpoint: "http://localhost:3000",
+  appVersion: '1.0.0',
 };
 
 /*

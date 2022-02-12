@@ -1,0 +1,42 @@
+
+@import './theme/cores.scss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+$default_font:'Poppins', sans-serif;
+
+$background-light : #f1f2fa;
+$main-background : #ededed;
+$navcolor : rgb(0, 0, 0);
+$footercolor : #000000;
+$footerbg : #FF4A4A;
+
+:root{
+  --darkgrey-darker: #111;
+  --darkgrey-dark: #25282a;
+  --darkgrey-dark2: #3c3c41;
+  --darkgrey-medium: #545859;
+  --darkgrey-light: #999;
+  --lightgrey-light: #e5e5e5;
+  --lightgrey-lighter: #f2f2f2;
+  --lightgrey-medium: #ccc;
+  --primary-default: #df585a;
+  --primary-light: #f6d8da;
+  --primary-dark: #f6323e;
+  --black-dark: #000;
+  --fresh-blue: #0067c7;
+  --fresh-blue-dark: #0067c7;
+  --fresh-blue-lightest: #f3f9ff;
+  --fresh-orange: #ff5f00;
+  --fresh-darkest: #003364;
+  --green-dark: #468a2e;
+  --black-medium: #717786;
+  --bg-header: #fff;
+  --blue-medium: #597298;
+  --b2b-blue-darkest: #1b3255;
+  --lines-dark: #bdc9d6;
+  --lines-darker: #a3afbc;
+  --lines-light: #dee7ef;
+  --serious-blue-dark: #214d8e;
+  --serious-black: #142032;
+  --serious-orange: #ff7d30;
+  --base: #fff;
+}

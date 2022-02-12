@@ -1,0 +1,26 @@
+
+:host ::ng-deep .cookie-law-wrapper{
+  width: 100%;
+  background-color: white;
+  justify-content: space-evenly;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 16px;
+  font-family: "Poppins";
+  text-align: justify;
+  z-index: 999999;
+  background-position: right;
+  background-size: cover;
+}
+
+:host ::ng-deep .cookie-law-wrapper .copy span:nth-child(1){
+  font-size: 14px;
+  color:black;
+}
+
+:host ::ng-deep .cookie-law-wrapper .copy span button span{
+  font-size: 14px;
+  color:white !important;
+}

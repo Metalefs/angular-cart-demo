@@ -1,1 +1,34 @@
-<codeby-nx-welcome></codeby-nx-welcome>
+<codeby-layout></codeby-layout>
+<cookie-law
+  *ngIf="!dismissed"
+  #cookieLaw
+  position="bottom"
+  name="ng4topCookieLaw"
+  [expiration]="1"
+  class="dis-flex flex-sa has-text-centered z-index-top shadow-light w-full"
+>
+  <div class="columns is-vcentered w-full">
+    <div class="column is-6">
+      <h2 class="subtitle">
+        Para melhorar a sua experiência neste site, salvamos alguns dados por
+        meio de cookies.
+      </h2>
+    </div>
+    <button
+      class="w-full is-rounded dis-flex flex-w flex-m"
+      title="Ok"
+      matBadgeColor="accent"
+      (click)="dismissCookieLaw()"
+      mat-raised-button
+    >
+      <p>
+        <mat-icon class="heartbutton color-light-red"> done </mat-icon>
+        Prosseguir
+      </p>
+    </button>
+  </div>
+</cookie-law>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type = "line-scale"
+  ><a class="button z-index-top" (click)="hideSpiner()">Fechar</a>
+  <p style="color: white">{{ loadingInfo }}</p></ngx-spinner
+>

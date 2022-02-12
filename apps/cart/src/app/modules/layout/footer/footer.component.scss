@@ -1,0 +1,83 @@
+
+@import '../../../../variables';
+.band-bloco{
+  max-width: 50px;
+}
+.z-top{
+  z-index: 1;
+  position: relative;
+}
+
+.base{
+  color: $footercolor;
+  font-family: 'Roboto';
+}
+span{
+  color:  $footercolor;
+  text-transform: lowercase;
+}
+.pi{
+  margin: 0 5px;
+}
+a{
+  @extend .base;
+  text-decoration: none;
+  display: inline;
+  &.footer-text {
+    .pi{
+      margin-right:5px;
+    }
+    &.links{
+      transition: .31s all;
+      p{
+        &::before {
+          content:"\e932";
+          font-family: 'primeicons';
+          padding-right: 5px;
+        }
+        &:hover{
+          color: gold !important;
+          transform:translateX(5px);
+        }
+      }
+      &.active{
+        color: gold !important;
+        transform:translateX(5px);
+      }
+      font-size: 16px;
+    }
+  }
+}
+.footer-title{
+  @extend .base;
+  line-height: 33px;
+  font-size: 20px;
+  opacity: .6;
+}
+.footer-text{
+  @extend .base;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+
+  & :hover{
+    color: #3a3a3a;
+  }
+}
+.footer-color{
+  background: $footerbg;
+}
+.txt-justify.footer-text.has-text-white p{
+  color: $footercolor
+}
+
+h4{
+  letter-spacing: 1px;
+}
+.control{
+  & .input{
+
+    border-radius: 1rem;
+  }
+  margin: 10px;
+}
