@@ -27,8 +27,8 @@ export class CheckoutComponent implements OnInit {
     private scrollService: PageScrollService,
     @Inject(PLATFORM_ID) private platform: object,
     private router: Router,
-    private fb:FormBuilder,
-    private snack:MatSnackBar,
+    private fb: FormBuilder,
+    private snack: MatSnackBar,
 
   ) { }
   valid = false;
@@ -40,7 +40,9 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platform))
       this.scrollService.scrollTop();
-
+    this.Orcamento$.subscribe(orc => {
+      this.checkoutService.Validate(orc);
+    });
   }
 
   prepareRoute(outlet: RouterOutlet) {
@@ -52,16 +54,17 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  FinalizarCompra(){
+  FinalizarCompra() {
     this.Orcamento$.subscribe(orc => {
       this.checkoutService.Validate(orc);
-      if(this.checkoutService.getValid()){
+      if (this.checkoutService.getValid()) {
         this.confirmar = true;
       }
-      else{
-        this.snack.open("Não foi possível completar a validação do seu pedido. Por favor, verifique os dados e tente novamente","Fechar",{verticalPosition:"top"}).afterDismissed().subscribe(()=>{
+      else {
+        this.snack.open("Não foi possível completar a validação do seu pedido. Por favor, verifique os dados e tente novamente", "Fechar", { verticalPosition: "top" }).afterDismissed().subscribe(() => {
           const errors = this.checkoutService.getErros().join(", ");
-          this.snack.open(`Verifique os erros: ${errors}`,"Ok",{verticalPosition:"top"})
+          this.snack.open(`Verifique os erros: ${errors}`, "Ok", { verticalPosition: "top" })
+          this.valid = this.checkoutService.getValid();
         })
       }
     });

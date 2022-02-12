@@ -1,7 +1,7 @@
 <table
   mat-table
   [dataSource]="dataSource"
-  class="has-background-white table-white of-x-scroll table-striped w-full"
+  class="has-background-white table-white of-x-scroll table-striped w-full of-x-hidden"
 >
   <ng-container matColumnDef="Produtos">
     <th @fadeIn mat-header-cell *matHeaderCellDef>Produtos</th>
@@ -12,7 +12,7 @@
             <img src="{{ element?.Produto.imageUrl }}" />
           </figure>
 
-          <div class="is-hidden-desktop ml-3">
+          <div class="is-hidden-desktop mb-5">
             <a
               href="#topo"
               [routerLink]="[
@@ -22,17 +22,17 @@
                   element?.codOrcamento
               ]"
               routerLinkActive="router-link-active"
-              class="title is-size-6"
+              class="title is-size-6 mb-5 pos-relative"
               >{{ element?.Produto.name }}
-              <p class="linethr text-muted">
-                <span class="is-size-7">de</span> R$
-                {{ ObterPrecoProduto(element.Produto).toFixed(2) || '0.00'
-                }}<span class="is-size-7"> Por</span>
-              </p>
-              <p class="preco fs-18 promocao">
-                R$ {{ObterPrecoDesconto(element.Produto  || '0.00')}}
-              </p>
             </a>
+            <p class="linethr text-muted mt-3">
+              <span class="is-size-7">de</span> R$
+              {{ ObterPrecoProduto(element.Produto).toFixed(2) || '0.00'
+              }}<span class="is-size-7"> Por</span>
+            </p>
+            <p class="preco fs-18 promocao">
+              R$ {{ObterPrecoDesconto(element.Produto  || '0.00')}}
+            </p>
 
             <div>
               <button

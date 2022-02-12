@@ -23,6 +23,7 @@
                 mat-flat-button
                 class="button is-info w-full is-uppercase"
                 (click)="FinalizarCompra()"
+                [disabled]="!this.checkoutService.getValid()"
               >
                 Finalizar Compra
               </a>
