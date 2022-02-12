@@ -26,7 +26,7 @@ export class CheckoutService {
 
     Orcamento.Produto.forEach((prd :entities.CodProduto)=>{
       if(!prd.Produto.Quantidade || prd.Produto.Quantidade <= 0)
-      CheckoutService.erros.push(`${prd.Produto.Nome} não possui quantidade selecionada.`);
+      CheckoutService.erros.push(`${prd.Produto.name} não possui quantidade selecionada.`);
     })
 
     CheckoutService.valid = CheckoutService.erros.length == 0;

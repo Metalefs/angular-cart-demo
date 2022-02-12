@@ -32,7 +32,7 @@ export class TabelaEdicaoOrcamentoComponent {
     ) { }
     ngOnInit(): void {
       this.Orcamento$.subscribe(x=>{
-
+        console.log(x)
         this.ProdutoTable = new MaterialTable();
         this.dataSource = new MatTableDataSource<entities.CodProduto>(x.Produto);
 
@@ -64,7 +64,7 @@ export class TabelaEdicaoOrcamentoComponent {
   }
 
   EditarOrcamento(element:entities.CodProduto){
-    this.store.dispatch(new EditarProdutoOrcamentoLocal(element.Produto,element.Produto._id,element.codOrcamento)).subscribe(store =>{
+    this.store.dispatch(new EditarProdutoOrcamentoLocal(element.Produto,element.Produto.id,element.codOrcamento)).subscribe(store =>{
       this.Orcamento$.subscribe((orc: entities.Orcamento)=>{
         this.checkoutService.Validate(orc);
       })
@@ -72,7 +72,7 @@ export class TabelaEdicaoOrcamentoComponent {
   }
 
   removerProduto(Produto:entities.CodProduto){
-    this.store.dispatch(new RemoverProdutoOrcamento(Produto.Produto._id,Produto.codOrcamento)).subscribe(x=>{
+    this.store.dispatch(new RemoverProdutoOrcamento(Produto.Produto.id,Produto.codOrcamento)).subscribe(x=>{
       this.Orcamento$.subscribe((x: entities.Orcamento)=>{
         const Produtos =  x.Produto;
         //let DistinctProdutos = removeDuplicates(Produtos,"_id");
@@ -87,8 +87,8 @@ export class TabelaEdicaoOrcamentoComponent {
       if(produto.Produto){
         let preco;
         let Produto;
-        if(produto.Produto.PrecoPromocional){
-          preco =  produto.Produto.Status == enums.StatusProduto.promocao? produto.Produto.PrecoPromocional : produto.Produto.Preco;
+        if(produto.Produto.price){
+          preco =  produto.Produto.Status == enums.StatusProduto.promocao? (produto.Produto.price/10) + produto.Produto.priceTags.rawValue : produto.Produto.price;
         }
         const Produtos =  x.Produto;
         const index = x.Produto.findIndex((item: { codOrcamento: any; }) => item.codOrcamento === produto.codOrcamento);
@@ -98,8 +98,8 @@ export class TabelaEdicaoOrcamentoComponent {
         this.Total = preco * Produto.Quantidade;
       }
     })
-    if(produto.Produto.Preco){
-      const preco = produto.Produto.Status == enums.StatusProduto.promocao? produto.Produto.PrecoPromocional : produto.Produto.Preco;
+    if(produto.Produto.price){
+      const preco = produto.Produto.Status == enums.StatusProduto.promocao? (produto.Produto.price/10) + produto.Produto.priceTags.rawValue : produto.Produto.price;
 
       return (preco * produto.Produto.Quantidade).toFixed(2);
     }

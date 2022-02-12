@@ -20,38 +20,10 @@ export class BaseService<Type> {
   ) { }
 
   Ler<Type>(limit?: number, skip?: number): Observable<Array<Type>> {
-    return this.http.get<Array<Type>>(environment.endpoint + this.domain_route).pipe(
+    return this.http.get<Array<Type>>(environment.endpoint + this.domain_route + '/acima').pipe(
       retry(3),
       catchError(this.ErrorHandler.handleError)
     );
   }
 
-  Filtrar<Type>(id: any): Observable<Array<Type>> {
-    return this.http.get<Array<Type>>(environment.endpoint + this.domain_route + `${id}`).pipe(
-      retry(3),
-      catchError(this.ErrorHandler.handleError)
-    );
-  }
-
-  Editar<Type>(item: Type): Observable<Type> {
-    return this.http.put<any>(environment.endpoint + this.domain_route,
-      {item}).pipe(
-        retry(3),
-        catchError(this.ErrorHandler.handleError)
-      )
-  }
-
-  Remover<Type>(id: string): Observable<Type> {
-    return this.http.delete<Type>(environment.endpoint + this.domain_route + `${id}`).pipe(
-      retry(3),
-      catchError(this.ErrorHandler.handleError)
-    )
-  }
-
-  Incluir<Type>(item: any): Observable<Type> {
-    return this.http.post<Type>(environment.endpoint + this.domain_route, {item}).pipe(
-      retry(3),
-      catchError(this.ErrorHandler.handleError)
-    );
-  }
 }

@@ -3,7 +3,7 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { AdicionarProdutoAoOrcamento, RemoverProdutoOrcamento, EditarOrcamentoLocal, EditarProdutoOrcamentoLocal, ResetarOrcamento, DuplicarProdutoOrcamento, EditarProdutoAbertoOrcamentoLocal, AplicarCodigoPromocional } from '../actions/orcamento.actions'
 import { Injectable } from '@angular/core';
 
-import { entities,enums } from '@codeby/data';
+import { entities, enums } from '@codeby/data';
 
 export class OrcamentoStateModel {
   Orcamento!: entities.Orcamento;
@@ -11,7 +11,7 @@ export class OrcamentoStateModel {
   areOrcamentosLoaded = false;
 }
 
-export const DEFAULT_ORCAMENTO = new entities.Orcamento([], "", enums.StatusOrcamento.aberto, 0, "", "");
+export const DEFAULT_ORCAMENTO = new entities.Orcamento([], enums.StatusOrcamento.aberto, 0);
 @State<OrcamentoStateModel>({
   name: "Orcamentos",
   defaults: {
@@ -29,10 +29,6 @@ export class OrcamentoState {
     return state.Orcamento;
   }
 
-  @Selector()
-  static ObterСupomDesconto(state: OrcamentoStateModel) {
-    return state.Orcamento.CupomDesconto;
-  }
 
   @Selector()
   static ObterListaOrcamentos(state: OrcamentoStateModel) {
@@ -61,11 +57,7 @@ export class OrcamentoState {
       "",
       "",
       "",
-      [""],
       0,
-      0,
-      0,
-      enums.StatusProduto.novo,
       0,
     );
     const newprod = Object.assign(prod, payload);
@@ -90,7 +82,7 @@ export class OrcamentoState {
 
   @Action(ResetarOrcamento)
   // eslint-disable-next-line no-empty-pattern
-  ResetarOrcamento({ getState, patchState }: StateContext<OrcamentoStateModel>, {  }: ResetarOrcamento) {
+  ResetarOrcamento({ getState, patchState }: StateContext<OrcamentoStateModel>, { }: ResetarOrcamento) {
     const state = getState();
     state.Orcamento = DEFAULT_ORCAMENTO;
     this.atualizarPreco(state);
@@ -127,10 +119,10 @@ export class OrcamentoState {
 
   atualizarPreco(state: OrcamentoStateModel) {
     state.Orcamento.Preco = 0;
-   state.Orcamento.Produto.forEach(prod => {
-      if (!isNaN(prod!.Produto!.Preco))
+    state.Orcamento.Produto.forEach(prod => {
+      if (!isNaN(prod!.Produto!.price))
         state.Orcamento.Preco +=
-          prod!.Produto!.Status == enums.StatusProduto.promocao ? prod!.Produto!.PrecoPromocional : prod!.Produto!.Preco
+          prod!.Produto!.Status == enums.StatusProduto.promocao ? prod!.Produto!.PrecoPromocional : prod!.Produto!.price
             * prod!.Produto!.Quantidade;
     })
   }

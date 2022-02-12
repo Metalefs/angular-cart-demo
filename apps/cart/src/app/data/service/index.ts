@@ -1,6 +1,4 @@
-import { ProdutoService } from './produto.service';
-import { PedidoService } from './pedido.service';
+import { CheckoutService } from './checkout.service';
 export {
-  ProdutoService,
-  PedidoService,
+  CheckoutService as ProdutoService,
 }

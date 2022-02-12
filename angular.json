@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "api": "apps/api",
     "cart": "apps/cart",
     "cart-e2e": "apps/cart-e2e",
     "data": "libs/data"

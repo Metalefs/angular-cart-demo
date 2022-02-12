@@ -17,15 +17,9 @@
     <div class="a-i-c columns">
       <div class="column is-12-desktop is-12-touch">
         <div class="w-full of-x-scroll">
-          <mat-accordion>
-            <mat-expansion-panel [expanded]="true">
-              <div class="exibicao-cart of-y-scroll">
-                <codeby-tabela-edicao-orcamento *ngIf="exibirTabela"
-                  [edit]="edit"
-                ></codeby-tabela-edicao-orcamento>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
+          <codeby-tabela-edicao-orcamento *ngIf="exibirTabela"
+            [edit]="edit"
+          ></codeby-tabela-edicao-orcamento>
         </div>
       </div>
 
@@ -38,18 +32,22 @@
 
     <div>
       <!-- if total is greater than 10, show free shipping -->
-      <div class="section">
-        <ul class="columns flex-sb">
-          <li>
-            <h1 class="title is-5">Total:</h1>
-          </li>
-          <li><p class="title is-5">R$ {{(Orcamento$ | async)?.Preco.toFixed(2)}}</p></li>
-        </ul>
+      <div class="">
+        <div class="section">
+          <ul class="columns flex-sb">
+            <li>
+              <h1 class="title is-5">Total:</h1>
+            </li>
+            <li><p class="title is-5">R$ {{(Orcamento$ | async)?.Preco?.toFixed(2)}}</p></li>
+          </ul>
+        </div>
         <ng-container *ngIf="(Orcamento$ | async)?.Preco > 10">
           <!-- success message -->
-          <span @fadeIn class="tag is-success is-rounded">
-            Parabéns, sua compra tem frete grátis !
-          </span>
+          <div class="w-full flex-c-m">
+            <h1 @fadeIn class="title is-6 tag is-rounded is-success">
+              Parabéns, sua compra tem frete grátis !
+            </h1>
+          </div>
         </ng-container>
       </div>
     </div>

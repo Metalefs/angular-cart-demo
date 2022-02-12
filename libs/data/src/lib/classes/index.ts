@@ -1,12 +1,12 @@
 import { Orcamento,CodProduto } from './orcamento';
-import { Pedido } from './pedido';
+import { Checkout } from './checkout';
 import { Produto } from './produto';
 import { Categoria } from './categoria';
 
 export {
   Orcamento,
   CodProduto,
-  Pedido,
+  Checkout,
   Produto,
   Categoria
 }

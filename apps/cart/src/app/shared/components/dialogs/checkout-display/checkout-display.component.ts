@@ -65,7 +65,7 @@ export class CheckoutDisplayComponent implements OnInit {
   }
 
   EditarOrcamento(element:entities.CodProduto){
-    this.store.dispatch(new EditarProdutoOrcamentoLocal(element.Produto,element.Produto._id,element.codOrcamento));
+    this.store.dispatch(new EditarProdutoOrcamentoLocal(element.Produto,element.Produto.id,element.codOrcamento));
     this.Orcamento$.subscribe(x=>{
       this.checkoutService.Validate(x);
     });
@@ -79,7 +79,7 @@ export class CheckoutDisplayComponent implements OnInit {
   }
 
   removerProduto(Produto:entities.CodProduto){
-    this.store.dispatch(new RemoverProdutoOrcamento(Produto.Produto._id,Produto.codOrcamento)).subscribe(x=>{
+    this.store.dispatch(new RemoverProdutoOrcamento(Produto.Produto.id,Produto.codOrcamento)).subscribe(x=>{
       this.Orcamento$.subscribe(x=>{
         const Produtos =  x.Produto;
         this.ProdutoTable.dataSource = Produtos;
@@ -92,10 +92,10 @@ export class CheckoutDisplayComponent implements OnInit {
       const Produtos =  x.Produto;
       const index = x.Produto.findIndex(item => item.codOrcamento === produto.codOrcamento);
       const Produto = Produtos[index].Produto;
-      this.Total =  produto.Produto.Status == enums.StatusProduto.promocao? produto.Produto.PrecoPromocional : produto.Produto.Preco * Produto.Quantidade;
+      this.Total =  produto.Produto.Status == enums.StatusProduto.promocao? (produto.Produto.price/10) + produto.Produto.priceTags.rawValue : produto.Produto.price * Produto.Quantidade;
     })
-    if(produto.Produto.Preco){
-      const preco =  produto.Produto.Status == enums.StatusProduto.promocao? produto.Produto.PrecoPromocional : produto.Produto.Preco;
+    if(produto.Produto.price){
+      const preco =  produto.Produto.Status == enums.StatusProduto.promocao? (produto.Produto.price/10) + produto.Produto.priceTags.rawValue : produto.Produto.price;
       return parseInt(preco.toString()) * parseInt(produto?.Produto?.Quantidade?.toString() ?? "0");
     }
     return 0;

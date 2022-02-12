@@ -1,7 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { entities } from '@codeby/data';
 
-import { EditarFiltroProduto, AdicionarFiltroProduto, RemoverFiltroProduto, AdicionarListaProdutosFiltroProduto, EditarCategoriaFiltroProduto, EditarSearchFiltroProduto } from '../actions/filtroproduto.actions';
+import { EditarFiltroProduto, AdicionarFiltroProduto, AdicionarListaProdutosFiltroProduto, EditarCategoriaFiltroProduto, EditarSearchFiltroProduto } from '../actions/filtroproduto.actions';
 
 import { Injectable } from '@angular/core';
 

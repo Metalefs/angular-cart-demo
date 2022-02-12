@@ -9,7 +9,7 @@ import { Store } from '@ngxs/store';
 import AOS from 'aos';
 
 import { LerCategoria } from './data/store/actions/categoria.actions';
-import { LerOrcamento } from './data/store/actions/orcamento.actions';
+import { AdicionarProdutoAoOrcamento, LerOrcamento, ResetarOrcamento } from './data/store/actions/orcamento.actions';
 import { LerProduto } from './data/store/actions/produto.actions';
 import { CookieLawComponent } from 'angular2-cookie-law';
 
@@ -59,9 +59,16 @@ export class AppComponent {
   }
 
   LerServicosAPI() {
-    this.store.dispatch(new LerProduto()).subscribe(() => this.loadingInfo = 'Obtendo produtos');
+    this.store.dispatch(new LerProduto()).subscribe((result) => {
+      this.loadingInfo = 'Obtendo produtos'
+      this.store.dispatch(new ResetarOrcamento()).subscribe((result) => {console.log('carrinho esvaziado')});
+      result.Produtos.Produtos.forEach(element => {
+        this.store.dispatch(new AdicionarProdutoAoOrcamento(element)).subscribe((result) => {
+          console.log(element.name + " Adicionado ao carrinho")
+        });
+      });
+    } );
     this.store.dispatch(new LerOrcamento()).subscribe(() => this.loadingInfo = '');
-
     this.store.dispatch(new LerCategoria()).subscribe();
   }
 

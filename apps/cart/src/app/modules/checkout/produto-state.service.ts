@@ -57,7 +57,6 @@ export class ProdutoStateService {
   }
 
   Atualizar() {
-    this.atualizarFiltroAtivo();
     this.RecarregarCategorias();
   }
 
@@ -67,24 +66,10 @@ export class ProdutoStateService {
     });
   }
 
-  atualizarFiltroAtivo() {
-    this.loading = true;
-    this.fQuery.Nome = this.activeSearchFilter || '';
-    this.fQuery.NomeCategoria = this.CategoriasAtivas.map(x => x.Nome).filter((value, index, self) => self.indexOf(value) === index).join("|") || "";
-
-    this.produtoService.FiltrarProdutos(this.fQuery, 1, this.activeOrderLimit).subscribe(async x => {
-      this.Produtos = x;
-
-      this.AtualizarFiltroProduto();
-
-      this.OrdenarProdutos(x);
-    })
-  }
-
   private OrdenarProdutos(x: entities.Produto[]) {
     switch (+this.activeOrderFilter) {
       case interfaces.TiposOrdenacao.nome:
-        this.Produtos = this.Produtos.sort((a, b) => a.Nome.localeCompare(b.Nome));
+        this.Produtos = this.Produtos.sort((a, b) => a.name.localeCompare(b.name));
         break;
 
       case interfaces.TiposOrdenacao.nomeDesc:
@@ -101,32 +86,10 @@ export class ProdutoStateService {
     }
   }
 
-  AtualizarFiltroProduto() {
-    const filtroProduto: FiltroProduto = {
-      Categoria: this.CategoriaAtiva,
-      CategoriasAtivas: this.CategoriasAtivas.filter((value, index, self) => self.indexOf(value) === index),
-      SearchFilter: this.activeSearchFilter,
-      OrderFilter: this.activeOrderFilter,
-      Produtos: this.Produtos.filter(z => this.filtroAtivo(z)),
-    };
-
-    this.store.dispatch(new EditarFiltroProduto(filtroProduto)).subscribe(y => {
-      this.delay(400).then(x => { this.loading = x; });
-      this.Produtos = y.Produtos.Produtos;
-    });
-  }
-
-  filtroAtivo(produto: entities.Produto) {
-    if (this.matchSearchFilter(produto))
-       return this.CategoriasAtivas.some(x => x.Nome === this.defaultCategory)
-        || this.CategoriasAtivas.some(x => x.Nome === produto.NomeCategoria);
-    return false;
-  }
-
   matchSearchFilter(produto: entities.Produto) {
     if (this.activeSearchFilter)
       return this.activeSearchFilter.length > 0 ?
-        produto.Nome.toLocaleLowerCase().includes(this.activeSearchFilter.toLocaleLowerCase())
+        produto.name.toLocaleLowerCase().includes(this.activeSearchFilter.toLocaleLowerCase())
         :
         true;
 
@@ -144,7 +107,6 @@ export class ProdutoStateService {
     this.SetCategoria(null);
     this.activeSearchFilter = '';
     this.activeOrderFilter = 0;
-    this.atualizarFiltroAtivo();
   }
 
   JoinCategoriasAtivas() {
@@ -172,7 +134,6 @@ export class ProdutoStateService {
     }
     this.CategoriasAtivas = this.CategoriasAtivas.filter((value, index, self) => self.indexOf(value) === index)
     this.titleService.setTitle(`Produtos - ${this.CategoriaAtiva.Nome}`)
-    this.atualizarFiltroAtivo();
   }
 
 

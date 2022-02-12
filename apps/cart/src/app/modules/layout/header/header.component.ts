@@ -8,6 +8,8 @@ import { tap } from 'rxjs/operators';
 import { CheckoutDisplayComponent } from '../../../shared/components/dialogs/checkout-display/checkout-display.component';
 import { fade, slideInOut } from '../../../animations';
 import { NgDialogAnimationService } from "ng-dialog-animation";
+import { OrcamentoState } from '../../../data/store/state';
+import { entities } from '@codeby/data';
 
 
 @Component({
@@ -17,6 +19,7 @@ import { NgDialogAnimationService } from "ng-dialog-animation";
   animations: [fade,slideInOut]
 })
 export class HeaderComponent {
+  @Select(OrcamentoState.ObterOrcamentos) Orcamento$: Observable<entities.Orcamento>;
   defaultCategory = "Todos os produtos";
   constructor(
     private router: Router,
