@@ -24,6 +24,10 @@
             (click)="openCheckout()"
             title="Cesta de compras"
             aria-label="Botão abrir Orçamento"
+            mat-raised-button
+            matBadgePosition="after"
+            matBadge="{{ (Orcamento$ | async)?.Produto.length || 0 }}"
+            matBadgeColor="warn"
           >
             <span class="icon">
               <svg
@@ -36,12 +40,12 @@
                 />
               </svg>
             </span>
-            <span class="is-hidden-touch has-text-white px-0" mat-menu-item>
-              Seu Carrinho
+            <span class="is-hidden-touch px-0" >
+              Cart
             </span>
-            <span class="badge">
-              {{ (Orcamento$ | async)?.Produto.length || 0 }}
-            </span>
+            <!-- <span class="tag is-rounded is-danger">
+
+            </span> -->
           </button>
         </div>
       </div>

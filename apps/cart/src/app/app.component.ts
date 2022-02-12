@@ -12,6 +12,7 @@ import { LerCategoria } from './data/store/actions/categoria.actions';
 import { AdicionarProdutoAoOrcamento, LerOrcamento, ResetarOrcamento } from './data/store/actions/orcamento.actions';
 import { LerProduto } from './data/store/actions/produto.actions';
 import { CookieLawComponent } from 'angular2-cookie-law';
+import { StatusProduto } from 'libs/data/src/lib/enums';
 
 @Component({
   selector: 'codeby-root',
@@ -63,6 +64,8 @@ export class AppComponent {
       this.loadingInfo = 'Obtendo produtos'
       this.store.dispatch(new ResetarOrcamento()).subscribe((result) => {console.log('carrinho esvaziado')});
       result.Produtos.Produtos.forEach(element => {
+        element.Quantidade = 1;
+        element.Status = StatusProduto.promocao;
         this.store.dispatch(new AdicionarProdutoAoOrcamento(element)).subscribe((result) => {
           console.log(element.name + " Adicionado ao carrinho")
         });

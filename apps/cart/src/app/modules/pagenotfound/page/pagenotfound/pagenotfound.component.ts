@@ -13,7 +13,7 @@ export class PagenotfoundComponent {
   back(){
     if(isPlatformBrowser(this.platformId)) {
       // Use the window reference: this.windowRef
-      this.windowRef.nativeWindow.location.pathname
+      this.windowRef.nativeWindow.history.back();
     }
   }
 

@@ -10,6 +10,7 @@ import { CheckoutService } from '../../../../modules/checkout/checkout.service';
 
 import { Observable } from 'rxjs';
 import { entities,MaterialTable,enums } from '@codeby/data';
+import { CalcularPrecoProduto } from 'apps/cart/src/app/helper/produto.helper';
 
 @Component({
   selector: 'codeby-checkout-display',
@@ -92,11 +93,11 @@ export class CheckoutDisplayComponent implements OnInit {
       const Produtos =  x.Produto;
       const index = x.Produto.findIndex(item => item.codOrcamento === produto.codOrcamento);
       const Produto = Produtos[index].Produto;
-      this.Total =  produto.Produto.Status == enums.StatusProduto.promocao? (produto.Produto.price/10) + produto.Produto.priceTags.rawValue : produto.Produto.price * Produto.Quantidade;
+      this.Total = CalcularPrecoProduto(Produto);;
     })
     if(produto.Produto.price){
-      const preco =  produto.Produto.Status == enums.StatusProduto.promocao? (produto.Produto.price/10) + produto.Produto.priceTags.rawValue : produto.Produto.price;
-      return parseInt(preco.toString()) * parseInt(produto?.Produto?.Quantidade?.toString() ?? "0");
+      const preco = CalcularPrecoProduto(produto.Produto);
+      return preco;
     }
     return 0;
   }

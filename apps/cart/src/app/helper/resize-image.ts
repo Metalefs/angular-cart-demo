@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 function loadImage(img: HTMLImageElement | PromiseLike<HTMLImageElement>, src: any):Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
       (img as any).src = src;
@@ -12,7 +13,7 @@ export function resizeImage(src: string, options: { width: any; height?: any; ty
 
   return loadImage(document.createElement('img'), src).then( (image:HTMLImageElement) =>{
 
-      var canvas = document.createElement('canvas');
+      const canvas = document.createElement('canvas');
 
       if (options.width && !options.height) {
           options.height = image.height * (options.width / image.width)

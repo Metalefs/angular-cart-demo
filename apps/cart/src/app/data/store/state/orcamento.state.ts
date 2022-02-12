@@ -4,6 +4,7 @@ import { AdicionarProdutoAoOrcamento, RemoverProdutoOrcamento, EditarOrcamentoLo
 import { Injectable } from '@angular/core';
 
 import { entities, enums } from '@codeby/data';
+import { CalcularPrecoProduto } from '../../../helper/produto.helper';
 
 export class OrcamentoStateModel {
   Orcamento!: entities.Orcamento;
@@ -120,10 +121,10 @@ export class OrcamentoState {
   atualizarPreco(state: OrcamentoStateModel) {
     state.Orcamento.Preco = 0;
     state.Orcamento.Produto.forEach(prod => {
-      if (!isNaN(prod!.Produto!.price))
-        state.Orcamento.Preco +=
-          prod!.Produto!.Status == enums.StatusProduto.promocao ? prod!.Produto!.PrecoPromocional : prod!.Produto!.price
-            * prod!.Produto!.Quantidade;
+      if (!isNaN(prod!.Produto!.price)){
+        const preco = CalcularPrecoProduto(prod!.Produto);
+        state.Orcamento.Preco += preco;
+      }
     })
   }
 }
