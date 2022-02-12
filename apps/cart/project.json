@@ -1,0 +1,88 @@
+{
+  "projectType": "application",
+  "root": "apps/cart",
+  "sourceRoot": "apps/cart/src",
+  "prefix": "codeby",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/cart",
+        "index": "apps/cart/src/index.html",
+        "main": "apps/cart/src/main.ts",
+        "polyfills": "apps/cart/src/polyfills.ts",
+        "tsConfig": "apps/cart/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/cart/src/favicon.ico", "apps/cart/src/assets"],
+        "styles": ["apps/cart/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/cart/src/environments/environment.ts",
+              "with": "apps/cart/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "cart:build:production"
+        },
+        "development": {
+          "browserTarget": "cart:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "cart:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/cart/src/**/*.ts", "apps/cart/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/cart"],
+      "options": {
+        "jestConfig": "apps/cart/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
