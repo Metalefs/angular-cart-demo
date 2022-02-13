@@ -12,6 +12,6 @@ export function ObterPrecoProduto(produto:entities.Produto){
 
 export function ObterPrecoDesconto(produto:entities.Produto){
   if(produto?.priceTags)
-  return (produto?.price/100) + produto?.priceTags[0].rawValue
-  return (produto?.price/100)
+  return ((produto?.price/100) + produto?.priceTags[0].rawValue) * produto.Quantidade
+  return (produto?.price/100) * produto.Quantidade
 }
